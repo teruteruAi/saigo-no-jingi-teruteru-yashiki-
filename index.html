@@ -67,3 +67,18 @@
 
 </body>
 </html>
+<!-- 音楽を流すボタン -->
+<button id="playMusic">音楽を流す</button>
+
+<!-- 音声ファイル（MP3など）を読み込む -->
+<audio id="music" src="music.mp3"></audio>
+
+<!-- 音楽再生用のスクリプト -->
+<script>
+  document.getElementById("playMusic").addEventListener("click", function () {
+    const music = document.getElementById("music");
+    music.play().catch(function (err) {
+      alert("音楽を再生できませんでした。ブラウザの設定を確認してね。");
+    });
+  });
+</script>
