@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>てるみちにあいさつしよう</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    img {
+      width: 250px;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    #speech {
+      margin-top: 20px;
+      padding: 15px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+      display: none;
+      background-color: #f9f9f9;
+    }
+    button {
+      font-size: 20px;
+      padding: 10px 30px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>てるみちにあいさつしよう</h1>
+  <p>よかったら音楽でも聞いて、ゆっくりしてね！ボタンを押してみて？</p>
+
+  <img src="terumichi.jpeg.jpg" alt="てるみちの絵">
+
+  <button onclick="greet()">こんにちは</button>
+
+  <div id="speech">こんにちは！ぼく、てるみち！</div>
+
+  <audio id="bgm" src="MusMus-BGM-180.mp3" loop></audio>
+
+  <script>
+    function greet() {
+      // 吹き出し表示
+      const speech = document.getElementById("speech");
+      speech.style.display = "block";
+
+      // 音楽再生
+      const bgm = document.getElementById("bgm");
+      bgm.play();
+
+      // 音声読み上げ（TTS）
+      const message = new SpeechSynthesisUtterance("こんにちは！ぼく、てるみち！");
+      message.lang = "ja-JP";
+      message.pitch = 1.5; // 可愛いトーン
+      message.rate = 1.1;
+      message.voice = speechSynthesis.getVoices().find(v => v.lang === 'ja-JP') || null;
+      speechSynthesis.speak(message);
+    }
+
+    // 音声合成エンジンの音声取得のための初期トリガー（Chrome対策）
+    window.speechSynthesis.onvoiceschanged = () => {};
+  </script>
+
+</body>
+</html>
