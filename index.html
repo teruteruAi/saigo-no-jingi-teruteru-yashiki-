@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>光通にあいさつしよう</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background-color: #fdf6e3;
+      padding: 20px;
+    }
+    img {
+      max-width: 300px;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .speech-bubble {
+      display: inline-block;
+      position: relative;
+      background: #e0f7fa;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px auto;
+      text-align: left;
+      max-width: 400px;
+    }
+    .speech-bubble:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 30px;
+      width: 0;
+      height: 0;
+      border: 20px solid transparent;
+      border-top-color: #e0f7fa;
+      border-bottom: 0;
+      border-left: 0;
+      margin-left: -10px;
+      margin-bottom: -20px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #80deea;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #4dd0e1;
+    }
+  </style>
+</head>
+<body>
+  <h1>光通にあいさつしよう</h1>
+
+  <img src="C99923B2-7BCF-4958-8119-60366AD4525E.jpeg" alt="光通">
+
+  <p>よかったら音楽でも聞いてね</p>
+  <audio controls autoplay loop>
+    <source src="MusMus-BGM-180.mp3" type="audio/mpeg">
+    音楽が再生できません。
+  </audio>
+
+  <div id="chat-area"></div>
+
+  <button onclick="sayHello()">こんにちは</button>
+
+  <script>
+    function sayHello() {
+      const chatArea = document.getElementById('chat-area');
+      chatArea.innerHTML = `
+        <div class="speech-bubble">
+          こんにちは！挨拶してくれてうれしいよ。・・・ありがとう。
+        </div>
+      `;
+      const msg = new SpeechSynthesisUtterance("こんにちは！挨拶してくれてうれしいよ。ありがとう。");
+      msg.lang = "ja-JP";
+      window.speechSynthesis.speak(msg);
+    }
+  </script>
+</body>
+</html>
+<!-- 光通の画像表示 -->
+<img src="C99923B2-7BCF-4958-8119-60366AD4525E.jpeg" alt="光通の笑顔" style="width: 300px; border-radius: 10px; display: block; margin: 20px auto;">
+
+<!-- 音楽再生プレイヤー -->
+<p style="text-align: center;">よかったら音楽でも聞いてね</p>
+<audio controls loop style="display: block; margin: 0 auto;">
+  <source src="MusMus-BGM-180.mp3" type="audio/mpeg">
+  お使いのブラウザは音声再生に対応していません。
+</audio>
+ 
