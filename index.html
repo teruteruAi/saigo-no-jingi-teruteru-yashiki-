@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>てるてる屋敷</title>
+</head>
+<body>
+  <h1>てるてる屋敷</h1>
+  <p>光通にあいさつしてみよう。</p>
+  <button onclick="greet()">こんにちは</button>
+
+  <audio id="bgm" src="MusMus-BGM-180.mp3"></audio>
+
+  <script>
+    function greet() {
+      const audio = document.getElementById("bgm");
+      audio.currentTime = 0;
+      audio.play().catch(e => console.log("音声の再生に失敗:", e));
+
+      const msg = new SpeechSynthesisUtterance("こんにちは！ぼく、てるみち！挨拶してくれて嬉しいよ！");
+      msg.lang = "ja-JP";
+      msg.pitch = 1.6;
+      msg.rate = 1.1;
+      speechSynthesis.speak(msg);
+    }
+  </script>
+</body>
+</html>
