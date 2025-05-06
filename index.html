@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>てるみちとあいさつしよう！</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #ffe6f0, #ffd6ec);
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      text-align: center;
+      padding-top: 60px;
+      color: #a6437d;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px #fff;
+    }
+
+    img {
+      width: 280px;
+      border-radius: 30px;
+      border: 6px dotted #ff99cc;
+      margin: 20px auto;
+      display: block;
+      background: #fffafc;
+      box-shadow: 0 0 15px #ffcce6;
+    }
+
+    .btn {
+      background-color: #ff99cc;
+      border: none;
+      color: white;
+      padding: 15px 35px;
+      margin-top: 20px;
+      font-size: 1.3em;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 3px 3px 8px #d97fa9;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background-color: #ffb6d9;
+      transform: scale(1.05);
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>てるみちとあいさつしよう♪</h1>
+  <img src="terumichi.jpeg.jpg" alt="てるみちの笑顔">
+
+  <button class="btn" onclick="sayHello()">こんにちは</button>
+
+  <audio id="bgm" src="MusMus-BGM-180.mp3" loop></audio>
+
+  <script>
+    const bgm = document.getElementById("bgm");
+    let bgmStarted = false;
+
+    function sayHello() {
+      // BGM再生（初回のみ）
+      if (!bgmStarted) {
+        bgm.play();
+        bgmStarted = true;
+      }
+
+      // 音声合成で挨拶
+      const msg = new SpeechSynthesisUtterance("こんにちは、ぼくてるみち。あいさつしてくれて、うれしいよ。");
+      msg.lang = 'ja-JP';
+      msg.pitch = 1.8;   // 少年っぽく高め
+      msg.rate = 0.85;   // ゆっくりめで甘く
+      msg.volume = 1;
+
+      window.speechSynthesis.cancel();  // 前の読み上げを止める
+      window.speechSynthesis.speak(msg);
+    }
+
+    // 自動再生制限対策
+    document.addEventListener('click', () => {
+      if (!bgmStarted) {
+        bgm.play().catch(() => {});
+        bgmStarted = true;
+      }
+    }, { once: true });
+  </script>
+
+</body>
+</html>
