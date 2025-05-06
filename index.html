@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>てるみちのほのぼのページ</title>
+  <style>
+    body {
+      background: #fff0f5;
+      font-family: "Hiragino Maru Gothic ProN", "Arial Rounded MT Bold", sans-serif;
+      text-align: center;
+      padding: 2em;
+    }
+
+    h1 {
+      color: #ff69b4;
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
+      text-shadow: 1px 1px #fff;
+    }
+
+    button {
+      background-color: #ffb6c1;
+      border: none;
+      border-radius: 10px;
+      padding: 1em 2em;
+      font-size: 1.2em;
+      cursor: pointer;
+      color: white;
+      box-shadow: 0 4px #d88aa6;
+      transition: all 0.2s;
+    }
+
+    button:hover {
+      background-color: #ffa6c9;
+    }
+
+    button:active {
+      box-shadow: none;
+      transform: translateY(2px);
+    }
+
+    .image {
+      width: 200px;
+      margin-bottom: 1em;
+    }
+  </style>
+</head>
+<body>
+  <h1>てるみちのほのぼのページ</h1>
+  <img src="terumichi.jpeg.jpg" alt="てるみち" class="image">
+  <p>ボタンを押すと、てるみちがあいさつしてくれるよ！</p>
+  <button onclick="playGreeting()">あいさつしてもらう！</button>
+
+  <audio id="bgm" src="MusMus-BGM-180.mp3" loop></audio>
+
+  <script>
+    let bgmStarted = false;
+
+    function playGreeting() {
+      // BGMは一度だけ再生
+      const bgm = document.getElementById("bgm");
+      if (!bgmStarted) {
+        bgm.play();
+        bgmStarted = true;
+      }
+
+      // 可愛くゆっくりした声で読み上げ
+      const utterance = new SpeechSynthesisUtterance("こんにちは、ぼくてるみち");
+      utterance.lang = "ja-JP";
+      utterance.pitch = 1.8; // 高めで可愛く
+      utterance.rate = 0.9;  // ゆっくり
+      utterance.volume = 1.0;
+
+      // 声の候補を選ぶ
+      const voices = speechSynthesis.getVoices();
+      const cuteVoice = voices.find(v => v.name.includes("Google 日本語") || v.lang === "ja-JP");
+      if (cuteVoice) {
+        utterance.voice = cuteVoice;
+      }
+
+      speechSynthesis.speak(utterance);
+    }
+
+    // Chrome対応：音声リストの取得タイミング調整
+    if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
+      speechSynthesis.onvoiceschanged = () => {};
+    }
+  </script>
+</body>
+</html>
