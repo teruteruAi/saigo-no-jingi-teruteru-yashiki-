@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>光通にあいさつしよう</title>
+  <style>
+    body {
+      font-family: "ヒラギノ角ゴ", sans-serif;
+      background-color: #f0f8ff;
+      text-align: center;
+      padding: 30px;
+    }
+    .balloon {
+      display: inline-block;
+      position: relative;
+      background: #fff0f5;
+      border-radius: 15px;
+      padding: 10px 20px;
+      margin-top: 20px;
+      max-width: 400px;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    }
+    .balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -15px;
+      left: 20px;
+      border: 10px solid transparent;
+      border-top-color: #fff0f5;
+    }
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 10px;
+      background-color: #87cefa;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #00bfff;
+    }
+  </style>
+</head>
+<body>
+
+<h1>光通にあいさつしよう</h1>
+
+<!-- 画像表示 -->
+<img src="hikarimitsu.jpg" alt="光通" width="300">
+
+<p>よかったら音楽でも聞いてね</p>
+
+<!-- 音楽ループ再生 -->
+<audio autoplay loop>
+  <source src="MusMus-BGM-180.mp3" type="audio/mpeg">
+  このブラウザはaudioに対応していません。
+</audio>
+
+<!-- ボタンとセリフ表示 -->
+<button onclick="sayHello()">こんにちは</button>
+
+<div id="response" class="balloon" style="display:none;">こんにちは！挨拶してくれてうれしいよ。・・・ありがとう。</div>
+
+<script>
+  function sayHello() {
+    const response = document.getElementById("response");
+    response.style.display = "block";
+
+    const msg = new SpeechSynthesisUtterance("こんにちは！挨拶してくれてうれしいよ。ありがとう。");
+    msg.lang = 'ja-JP';
+
+    // 少年っぽいかわいい声を指定（対応していれば）
+    const voices = window.speechSynthesis.getVoices();
+    msg.voice = voices.find(v => v.name.includes("Google 日本語") && v.name.includes("男性")) || null;
+
+    window.speechSynthesis.speak(msg);
+  }
+</script>
+
+</body>
+</html>
