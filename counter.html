@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>あいさつカウンター</title>
+  <style>
+    body {
+      background-color: #ffe0f0;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding-top: 80px;
+      color: #d63384;
+    }
+
+    .counter-box {
+      background-color: #fff0f8;
+      border: 2px dashed #ff9bd0;
+      display: inline-block;
+      padding: 20px 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px #ffc0e0;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 30px;
+    }
+
+    .label {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    .count {
+      font-size: 3em;
+      font-weight: bold;
+      color: #ff69b4;
+    }
+  </style>
+</head>
+<body>
+  <h1>てるみちのページへようこそ！</h1>
+  <div class="counter-box">
+    <div class="label">あいさつカウンター</div>
+    <div class="count" id="counter">読込中...</div>
+  </div>
+
+  <script>
+    fetch("counter.php")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("counter").textContent = data.padStart(3, '0');
+      });
+  </script>
+</body>
+</html>
