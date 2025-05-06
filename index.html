@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>光通にあいさつしよう</title>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      background-color: #e6f7f9;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      font-size: 28px;
+      color: #000;
+    }
+    p {
+      font-size: 18px;
+      color: #333;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #00bfff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #009acd;
+    }
+    #message {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #ffeaea;
+      color: #333;
+      border-radius: 10px;
+      font-size: 18px;
+      display: none;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1><strong>光通にあいさつしよう</strong></h1>
+  <p>ボタンを押したら… 光通が応えてくれるかも？</p>
+
+  <button onclick="greetAndPlay()">光通にあいさつする</button>
+
+  <div id="message">こんにちは！ 挨拶してくれてうれしいよ。<br>…ありがとう。</div>
+
+  <audio id="bgm" preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+    お使いのブラウザでは音楽が再生できません。
+  </audio>
+
+  <script>
+    function greetAndPlay() {
+      document.getElementById("message").style.display = "block";
+      const bgm = document.getElementById("bgm");
+      if (bgm.paused) {
+        bgm.play().catch(error => {
+          alert("音楽の再生に失敗しました。もう一度ボタンを押してね。");
+        });
+      } else {
+        bgm.pause();
+        bgm.currentTime = 0;
+      }
+    }
+  </script>
+
+</body>
+</html>
