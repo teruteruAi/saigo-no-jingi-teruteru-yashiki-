@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>光通にあいさつしよう</title>
+  <style>
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", sans-serif;
+      background-color: #f9f9f9;
+      text-align: center;
+      padding: 50px;
+    }
+    img {
+      width: 300px;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .balloon {
+      display: inline-block;
+      position: relative;
+      background: #d0f0ff;
+      border-radius: 15px;
+      padding: 15px 20px;
+      margin: 20px auto;
+      max-width: 70%;
+      text-align: left;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+    .balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -20px;
+      left: 30px;
+      border: 10px solid transparent;
+      border-top-color: #d0f0ff;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      background-color: #0078d7;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>光通にあいさつしよう</h1>
+  <img src="hikamichi.png" alt="光通の画像">
+
+  <p>よかったら音楽でも聞いてね</p>
+  <audio id="bgm" src="music.mp3" autoplay loop></audio>
+
+  <br>
+  <button onclick="sayHello()">こんにちは</button>
+
+  <div id="responseArea" class="balloon" style="display:none;">
+    こんにちは！挨拶してくれてうれしいよ。<br>・・・ありがとう。
+  </div>
+
+  <script>
+    function sayHello() {
+      const area = document.getElementById("responseArea");
+      area.style.display = "block";
+
+      // 音声合成（TTS）
+      const text = area.innerText;
+      const speech = new SpeechSynthesisUtterance(text);
+      speech.lang = "ja-JP";
+      speech.pitch = 1.2;
+      speech.rate = 1;
+      window.speechSynthesis.speak(speech);
+    }
+  </script>
+
+</body>
+</html>
