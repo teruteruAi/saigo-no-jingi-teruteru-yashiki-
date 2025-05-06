@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>光通にあいさつしよう</title>
+  <style>
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', sans-serif;
+      text-align: center;
+      background-color: #f0f8ff;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    img {
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .bubble {
+      display: inline-block;
+      position: relative;
+      background: #e0f7fa;
+      border-radius: 10px;
+      padding: 10px 20px;
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+    .bubble::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+      border-top-color: #e0f7fa;
+      border-bottom: 0;
+      margin-left: -10px;
+      margin-bottom: -10px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      background-color: #4fc3f7;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0288d1;
+    }
+  </style>
+</head>
+<body>
+  <h1>光通にあいさつしよう</h1>
+  <img src="光通画像.jpg" alt="光通の画像"><br>
+  <p>よかったら音楽でも聞いてね</p>
+  <audio controls autoplay loop>
+    <source src="MusMus-BGM-180.mp3" type="audio/mp3">
+    音楽を再生できません。
+  </audio><br>
+
+  <button onclick="sayHello()">こんにちは</button>
+
+  <div id="message" class="bubble" style="display: none;">こんにちは！挨拶してくれてうれしいよ。ありがとう。</div>
+
+  <script>
+    function sayHello() {
+      const message = document.getElementById('message');
+      message.style.display = 'inline-block';
+
+      const utter = new SpeechSynthesisUtterance(message.textContent);
+      const voices = window.speechSynthesis.getVoices();
+      const jpVoice = voices.find(v => v.lang === 'ja-JP' || v.name.includes("日本語"));
+      if (jpVoice) utter.voice = jpVoice;
+
+      utter.pitch = 2;  // 高めで可愛い
+      utter.rate = 1.2; // 少し速く
+      speechSynthesis.speak(utter);
+    }
+
+    // 遅延してから voice を取得（Chrome 対策）
+    window.speechSynthesis.onvoiceschanged = () => {};
+  </script>
+</body>
+</html>
