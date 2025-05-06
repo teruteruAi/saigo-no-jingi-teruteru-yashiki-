@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>光通にあいさつしよう</title>
+  <style>
+    body {
+      font-family: "Hiragino Kaku Gothic ProN", sans-serif;
+      background-color: #f0f8ff;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      color: #333;
+    }
+    #response {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 15px;
+      background-color: #fff0f5;
+      display: inline-block;
+      max-width: 300px;
+      font-size: 18px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      background-color: #87cefa;
+      border: none;
+      cursor: pointer;
+      color: white;
+    }
+    button:hover {
+      background-color: #00bfff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>光通にあいさつしよう</h1>
+
+  <p>よかったら音楽でも聞いてね</p>
+  <audio src="MusMus-BGM-180.mp3" autoplay loop></audio>
+
+  <br><br>
+  <button onclick="sayHello()">こんにちは</button>
+
+  <div id="response" style="display:none;">
+    <p>こんにちは！挨拶してくれてうれしいよ。<br>…ありがとう。</p>
+  </div>
+
+  <script>
+    function sayHello() {
+      document.getElementById("response").style.display = "block";
+      const text = "こんにちは！挨拶してくれてうれしいよ。ありがとう。";
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "ja-JP";
+      utterance.pitch = 1.8; // ちょっと高めで可愛い声風
+      utterance.rate = 1.1;
+      speechSynthesis.speak(utterance);
+    }
+  </script>
+
+</body>
+</html>
