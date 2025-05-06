@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>光通にあいさつしよう</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f2f2ff;
+      text-align: center;
+      padding: 30px;
+    }
+
+    h1 {
+      color: #444;
+      font-size: 2em;
+    }
+
+    #character-img {
+      max-width: 300px;
+      border-radius: 10px;
+      border: 2px solid #aaa;
+      margin: 20px 0;
+    }
+
+    .speech-bubble {
+      display: inline-block;
+      position: relative;
+      background: #e0f7ff;
+      border-radius: 1em;
+      padding: 10px 20px;
+      max-width: 300px;
+      margin: 20px auto;
+      text-align: left;
+    }
+
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 30px;
+      width: 0;
+      height: 0;
+      border: 15px solid transparent;
+      border-top-color: #e0f7ff;
+      border-bottom: 0;
+      margin-left: -15px;
+      margin-bottom: -15px;
+    }
+
+    button {
+      background-color: #a6c1ff;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #87a8ff;
+    }
+  </style>
+</head>
+<body>
+  <h1>光通にあいさつしよう</h1>
+
+  <img id="character-img" src="C99923B2-7BCF-4958-8119-60366AD4525E.jpeg" alt="光通">
+
+  <p>よかったら音楽でも聞いてね。</p>
+  <audio controls loop autoplay>
+    <source src="MusMus-BGM-180.mp3" type="audio/mpeg">
+    お使いのブラウザでは音楽が再生できません。
+  </audio>
+
+  <br><br>
+  <button onclick="sayHello()">こんにちは</button>
+
+  <div id="response" class="speech-bubble" style="display:none;"></div>
+
+  <script>
+    function sayHello() {
+      const message = "こんにちは！挨拶してくれてうれしいよ。・・・ありがとう。";
+      const bubble = document.getElementById("response");
+      bubble.innerText = message;
+      bubble.style.display = "block";
+
+      const synth = window.speechSynthesis;
+      const utter = new SpeechSynthesisUtterance(message);
+      utter.lang = 'ja-JP';
+      synth.speak(utter);
+    }
+  </script>
+</body>
+</html>
