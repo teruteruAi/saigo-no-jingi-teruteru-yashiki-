@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>てるてる屋敷</title>
+  <style>
+    body {
+      font-family: "Hiragino Maru Gothic ProN", sans-serif;
+      text-align: center;
+      background-color: #fdf6f6;
+      margin: 50px;
+    }
+    button {
+      font-size: 18px;
+      padding: 10px 20px;
+      background-color: #ffdddd;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #ffbbbb;
+    }
+  </style>
+</head>
+<body>
+  <h1>てるてる屋敷へようこそ</h1>
+  <p>よかったら音楽でも聞いて、ゆっくりしてね！ボタンを押してみて？</p>
+  <button onclick="playAll()">こんにちは</button>
+
+  <!-- 音楽ファイル -->
+  <audio id="bgm" src="MusMus-BGM-180.mp3"></audio>
+
+  <script>
+    function playAll() {
+      // セリフを読み上げ
+      const text = "こんにちは、ぼく光通。来てくれてうれしいよ！";
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ja-JP';
+      utterance.pitch = 1.8;  // 可愛い声っぽく
+      utterance.rate = 1.2;
+      speechSynthesis.speak(utterance);
+
+      // 音楽再生
+      const audio = document.getElementById('bgm');
+      audio.play();
+    }
+  </script>
+</body>
+</html>
