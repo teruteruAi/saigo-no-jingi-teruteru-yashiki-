@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>光通にあいさつしよう</title>
+  <style>
+    body {
+      background-color: #eef7fa;
+      font-family: sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    .message {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #ffeef0;
+      border-radius: 10px;
+      display: inline-block;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #00bfff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>光通にあいさつしよう</h1>
+  <p>よかったら音楽でも聞いて、ゆっくりしてね！<br>ボタンを押してみて？</p>
+
+  <button onclick="sayHello()">こんにちは</button>
+  <button onclick="playMusic()">音楽を流す</button>
+
+  <div id="messageArea" class="message" style="display: none;">
+    こんにちは！挨拶してくれてうれしいよ。<br>…ありがとう。
+  </div>
+
+  <audio id="bgm" src="music.mp3"></audio>
+
+  <script>
+    function sayHello() {
+      document.getElementById('messageArea').style.display = 'block';
+    }
+
+    function playMusic() {
+      const audio = document.getElementById('bgm');
+      audio.play();
+    }
+  </script>
+
+</body>
+</html>
