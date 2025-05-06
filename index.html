@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>てるみちにあいさつしよう</title>
+  <style>
+    body {
+      font-family: 'Hiragino Maru Gothic Pro', 'Rounded Mplus 1c', sans-serif;
+      background: linear-gradient(to bottom right, #fff1f8, #ffe9f0);
+      text-align: center;
+      padding-top: 50px;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #d16ba5;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 2px #ffffffaa;
+    }
+    p {
+      font-size: 1.2em;
+      color: #a44474;
+      margin-bottom: 30px;
+    }
+    img {
+      width: 250px;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border: 3px solid #fcdff0;
+      box-shadow: 0 0 10px #fcdff0;
+    }
+    #speech {
+      margin-top: 20px;
+      padding: 15px;
+      border: 2px dashed #ffaad4;
+      border-radius: 20px;
+      width: 300px;
+      margin: 20px auto;
+      display: none;
+      background-color: #fff8fb;
+      font-size: 1.2em;
+      color: #c84e80;
+    }
+    #error, #error-img {
+      color: #e46666;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+    button {
+      font-size: 20px;
+      padding: 12px 40px;
+      background-color: #fdaecb;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      box-shadow: 0 4px #d17393;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    button:hover {
+      background-color: #f888b8;
+    }
+    button:active {
+      box-shadow: none;
+      transform: translateY(2px);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>てるみちにあいさつしよう</h1>
+  <p>よかったら音楽でも聞いて、ゆっくりしてね！ボタンを押してみて？</p>
+
+  <!-- 画像表示 -->
+  <img src="terumichi.jpeg.jpg" alt="てるみちの絵" onerror="this.style.display='none'; document.getElementById('error-img').style.display='block';">
+  <div id="error-img" style="display: none;">※ 画像が読み込めませんでした。</div>
+
+  <!-- あいさつボタン -->
+  <button onclick="greet()">こんにちは</button>
+
+  <!-- 吹き出し -->
+  <div id="speech">こんにちは！ぼく、てるみち！</div>
+  <div id="error" style="display: none;">※ 音楽が読み込めませんでした。</div>
+
+  <!-- BGM -->
+  <audio id="bgm" src="MusMus-BGM-180.mp3" loop onerror="document.getElementById('error').style.display='block';"></audio>
+
+  <script>
+    function greet() {
+      // 吹き出し表示
+      const speech = document.getElementById("speech");
+      speech.style.display = "block";
+
+      // 音楽再生
+      const bgm = document.getElementById("bgm");
+      if (bgm && bgm.readyState >= 2) {
+        bgm.play().catch(() => {
+          document.getElementById('error').style.display = 'block';
+        });
+      }
+
+      // 音声読み上げ（TTS）・高くて可愛い声
+      const message = new SpeechSynthesisUtterance("こんにちは！ぼく、てるみち！");
+      message.lang = "ja-JP";
+      message.pitch = 2.0;
+      message.rate = 1.2;
+      message.volume = 1.0;
+
+      const voices = speechSynthesis.getVoices();
+      const jpVoice = voices.find(v => v.lang === 'ja-JP');
+      if (jpVoice) {
+        message.voice = jpVoice;
+      }
+
+      speechSynthesis.speak(message);
+    }
+
+    // Chrome対応
+    window.speechSynthesis.onvoiceschanged = () => {};
+  </script>
+
+</body>
+</html>
