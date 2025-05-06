@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>こんにちはボタン</title>
+  <style>
+    body {
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff0f5;
+      font-family: "Arial", sans-serif;
+    }
+    button {
+      font-size: 24px;
+      padding: 20px 40px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(to right, #ffccff, #ffccee);
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: 0.3s;
+    }
+    button:hover {
+      background: linear-gradient(to right, #ff99cc, #ff88aa);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <button onclick="sayHello()">こんにちは</button>
+  
+  <audio id="bgm" src="MusMus-BGM-180.mp3"></audio>
+
+  <script>
+    function sayHello() {
+      // 音楽の再生
+      const music = document.getElementById("bgm");
+      music.currentTime = 0;
+      music.play();
+
+      // 音声合成（可愛い声っぽく）
+      const utter = new SpeechSynthesisUtterance("こんにちは");
+      utter.lang = "ja-JP";
+      utter.pitch = 2.0;  // 可愛くするために高め
+      utter.rate = 1.2;   // 少し速く
+      speechSynthesis.speak(utter);
+    }
+  </script>
+
+</body>
+</html>
